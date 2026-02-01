@@ -1,0 +1,68 @@
+<?xml version='1.0' standalone='yes'?>
+<!DOCTYPE PLUGIN [
+<!ENTITY name      "docker-top">
+<!ENTITY author    "antigravity">
+<!ENTITY version   "2026.02.01">
+<!ENTITY launch    "Dashboard">
+<!ENTITY pluginURL "https://github.com/dave/unraid-docker-top/raw/master/plugins">
+<!ENTITY source    "/usr/local/emhttp/plugins/&name;/source">
+]>
+<PLUGIN name="&name;" author="&author;" version="&version;" launch="&launch;" pluginURL="&pluginURL;">
+
+<CHANGES>
+<CHANGE>2026.02.01 - Initial Release</CHANGE>
+</CHANGES>
+
+<!-- The 'install' script. -->
+<FILE Name="/boot/config/plugins/&name;/&name;.txz">
+<URL>&pluginURL;/&name;.txz</URL>
+<MD5>cec46a9dc26f48e6b4d27608cc507a5c</MD5>
+</FILE>
+
+<FILE Name="/usr/local/emhttp/plugins/&name;/bucket">
+<INLINE>
+<!-- Placeholder for bucket usage -->
+</INLINE>
+</FILE>
+
+<!-- 
+INSTALLATION SCRIPT 
+-->
+<FILE Run="/bin/bash">
+<INLINE>
+# Check if we are checking for updates or installing
+echo "Installing &name;..."
+
+# Create clean directory structure
+mkdir -p /usr/local/emhttp/plugins/&name;
+
+# Unpack the archive if it exists
+if [ -f "/boot/config/plugins/&name;/&name;.txz" ]; then
+    echo "Extracting plugin files..."
+    tar -xJf "/boot/config/plugins/&name;/&name;.txz" -C "/usr/local/emhttp/plugins/"
+fi
+
+# Ensure permissions
+chmod -R 755 /usr/local/emhttp/plugins/&name;
+
+echo ""
+echo "----------------------------------------------------"
+echo " &name; has been installed."
+echo " Copyright 2026, &author;"
+echo " Version: &version;"
+echo "----------------------------------------------------"
+echo ""
+</INLINE>
+</FILE>
+
+<!-- REMOVAL SCRIPT -->
+<FILE Run="/bin/bash" Method="remove">
+<INLINE>
+echo "Removing &name;..."
+removepkg &name;-&version;
+rm -rf /usr/local/emhttp/plugins/&name;
+echo "&name; has been removed"
+</INLINE>
+</FILE>
+
+</PLUGIN>

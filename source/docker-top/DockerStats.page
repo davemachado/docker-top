@@ -1,0 +1,40 @@
+Menu="Dashboard:page"
+Icon="docker-top.png"
+Title="Docker Top"
+---
+<?php
+$plugin = "docker-top";
+?>
+
+<link rel="stylesheet" href="/plugins/<?php echo $plugin; ?>/styles.css">
+<script src="/plugins/<?php echo $plugin; ?>/stats.js"></script>
+
+<div id="docker-top-widget" class="docker-top-container">
+    <div class="docker-top-header">
+        <div class="docker-top-title">
+            <i class="fa fa-docker"></i> Top Containers
+        </div>
+        <div class="docker-top-controls">
+            <select id="docker-top-metric-select" onchange="updateDockerTop()">
+                <option value="cpu">CPU Usage</option>
+                <option value="mem">Memory Usage</option>
+                <option value="disk">Disk I/O</option>
+            </select>
+            <i class="fa fa-refresh" onclick="updateDockerTop()" title="Refresh"></i>
+        </div>
+    </div>
+    
+    <div id="docker-top-list" class="docker-top-list">
+        <!-- Content populated by JS -->
+        <div class="docker-top-loading">Loading stats...</div>
+    </div>
+</div>
+
+<script>
+// Init
+$(document).ready(function() {
+    // Start polling
+    setInterval(updateDockerTop, 3000); // 3 seconds refresh
+    updateDockerTop();
+});
+</script>
