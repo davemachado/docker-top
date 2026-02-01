@@ -1,3 +1,4 @@
+<!-- source/docker-top/DockerStats.page -->
 Menu="Dashboard:page"
 Icon="docker-top.png"
 Title="Docker Top"
@@ -11,8 +12,14 @@ $plugin = "docker-top";
 
 <div id="docker-top-widget" class="docker-top-container">
     <div class="docker-top-header">
-        <div class="docker-top-title">
-            <i class="fa fa-docker"></i> Top Containers
+        <div class="docker-top-title-wrap">
+            <div class="docker-top-icon">
+                <i class="fa fa-th-large"></i>
+            </div>
+            <div class="docker-top-title-content">
+                <div class="docker-top-title">DOCKER CONTAINERS</div>
+                <div id="docker-top-subtitle" class="docker-top-subtitle">Top 10 by CPU Usage</div>
+            </div>
         </div>
         <div class="docker-top-controls">
             <select id="docker-top-metric-select" onchange="updateDockerTop()">
@@ -28,9 +35,26 @@ $plugin = "docker-top";
         <!-- Content populated by JS -->
         <div class="docker-top-loading">Loading stats...</div>
     </div>
+
+    <div id="docker-top-details" class="docker-top-details-toggle" onclick="toggleDetails()">
+        Hide details
+    </div>
 </div>
 
 <script>
+// Toggle details visibility
+function toggleDetails() {
+    const list = document.getElementById('docker-top-list');
+    const toggle = document.getElementById('docker-top-details');
+    if (list.style.display === 'none') {
+        list.style.display = 'block';
+        toggle.innerText = 'Hide details';
+    } else {
+        list.style.display = 'none';
+        toggle.innerText = 'Show details';
+    }
+}
+
 // Init
 $(document).ready(function() {
     // Start polling

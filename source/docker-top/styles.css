@@ -1,98 +1,199 @@
 /* source/docker-top/styles.css */
 
 .docker-top-container {
-    padding: 10px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    color: #333; /* Default text color, overriden by theme usually */
+    padding: 12px 15px;
+    font-family: "Clear Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #333;
 }
 
-/* Header */
+/* Header styling to match Unraid Dashboard */
 .docker-top-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 5px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #e8e8e8;
+    padding-bottom: 8px;
+}
+
+.docker-top-title-wrap {
+    display: flex;
+    align-items: flex-start;
+}
+
+.docker-top-icon {
+    font-size: 24px;
+    margin-right: 12px;
+    color: #333;
+    width: 24px;
+    text-align: center;
+}
+
+.docker-top-title-content {
+    display: flex;
+    flex-direction: column;
 }
 
 .docker-top-title {
-    font-weight: bold;
-    font-size: 1.1em;
+    font-weight: 700;
+    font-size: 14px;
     text-transform: uppercase;
+    line-height: 1.2;
+    color: #1a1a1a;
+}
+
+.docker-top-subtitle {
+    font-size: 12px;
+    color: #333;
+    margin-top: 2px;
+}
+
+.docker-top-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .docker-top-controls select {
-    padding: 3px 5px;
+    padding: 2px 4px;
     border: 1px solid #ccc;
-    border-radius: 3px;
-    font-size: 0.9em;
-    background: #fff;
+    border-radius: 2px;
+    font-size: 11px;
+    background: #fcfcfc;
     color: #333;
+    height: 22px;
 }
 
 .docker-top-controls i.fa-refresh {
     cursor: pointer;
-    margin-left: 8px;
-    color: #666;
-}
-.docker-top-controls i.fa-refresh:hover {
-    color: #333;
+    color: #999;
+    font-size: 12px;
 }
 
-/* List Items */
+.docker-top-controls i.fa-refresh:hover {
+    color: #444;
+}
+
+/* Row Layout */
 .docker-top-row {
     display: flex;
     align-items: center;
     margin-bottom: 6px;
-    font-size: 0.95em;
+    font-size: 13px;
+    line-height: 1.4;
 }
 
 .docker-top-name {
-    flex: 0 0 200px;
+    flex: 0 0 160px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    padding-right: 10px;
+    padding-right: 8px;
+    color: #333;
 }
 
 .docker-top-val-text {
-    flex: 0 0 60px;
+    flex: 0 0 45px;
     text-align: right;
     padding-right: 10px;
-    font-variant-numeric: tabular-nums;
-    font-weight: bold;
+    font-weight: normal;
 }
 
 .docker-top-bar-container {
     flex: 1;
-    height: 12px;
-    background-color: #e0e0e0;
-    border-radius: 2px;
+    height: 10px;
+    background-color: #dddddd;
+    border-radius: 0;
     overflow: hidden;
     position: relative;
+    max-width: 400px;
 }
 
 .docker-top-bar-fill {
     height: 100%;
-    background-color: #7f8c8d; /* Default gray/neutral */
+    background-color: #888888;
     width: 0%;
-    transition: width 0.5s ease-in-out, background-color 0.3s;
+    transition: width 0.4s ease-out;
 }
 
-/* Color Coding based on thresholds (applied by JS classes) */
-.usage-low { color: #27ae60; }
-.usage-med { color: #f39c12; }
-.usage-high { color: #c0392b; }
+/* Color Coding for Percentages */
+.usage-low {
+    color: #5cb85c;
+}
 
-.bar-low { background-color: #95a5a6; } /* Neutral gray-green */
-.bar-med { background-color: #f39c12; }
-.bar-high { background-color: #c0392b; }
+/* Green */
+.usage-med {
+    color: #f0ad4e;
+}
 
-/* Dark Mode Overrides (Basic attempt, real Unraid handles this via global classes) */
-@media (prefers-color-scheme: dark) {
-    .docker-top-container { color: #eee; }
-    .docker-top-controls select { background: #444; color: #eee; border-color: #666; }
-    .docker-top-bar-container { background-color: #444; }
-    .docker-top-header { border-bottom-color: #444; }
+/* Orange/Yellow */
+.usage-high {
+    color: #d9534f;
+}
+
+/* Red */
+
+/* Details Toggle */
+.docker-top-details-toggle {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 13px;
+    color: #4a7ebb;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.docker-top-details-toggle:hover {
+    text-decoration: underline;
+}
+
+/* Loading */
+.docker-top-loading {
+    padding: 20px;
+    text-align: center;
+    color: #999;
+    font-style: italic;
+}
+
+/* Dark Mode Support */
+body.dark .docker-top-container {
+    color: #ddd;
+}
+
+body.dark .docker-top-title {
+    color: #fff;
+}
+
+body.dark .docker-top-subtitle {
+    color: #ccc;
+}
+
+body.dark .docker-top-icon {
+    color: #ccc;
+}
+
+body.dark .docker-top-header {
+    border-bottom-color: #444;
+}
+
+body.dark .docker-top-controls select {
+    background: #333;
+    color: #ddd;
+    border-color: #555;
+}
+
+body.dark .docker-top-bar-container {
+    background-color: #444;
+}
+
+body.dark .docker-top-bar-fill {
+    background-color: #777;
+}
+
+body.dark .docker-top-name {
+    color: #ccc;
+}
+
+body.dark .docker-top-details-toggle {
+    color: #69a1e0;
 }
