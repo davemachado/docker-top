@@ -1,5 +1,5 @@
 <?php
-// unraid-top-plugin/source/docker-top/get_stats.php
+// docker-top/source/docker-top/get_stats.php
 
 header('Content-Type: application/json');
 
