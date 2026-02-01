@@ -6,75 +6,20 @@
     color: #333;
 }
 
-/* Header styling to match Unraid Dashboard */
-.docker-top-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-    border-bottom: 1px solid #e8e8e8;
-    padding-bottom: 8px;
+/* Main container tweaks for table structure */
+.docker-top-list {
+    display: block;
+    /* Default to show */
+    width: 100%;
 }
 
-.docker-top-title-wrap {
-    display: flex;
-    align-items: flex-start;
-}
-
-.docker-top-icon {
-    font-size: 24px;
-    margin-right: 12px;
-    color: #333;
-    width: 24px;
+.docker-top-loading {
+    padding: 20px;
     text-align: center;
+    color: #888;
 }
 
-.docker-top-title-content {
-    display: flex;
-    flex-direction: column;
-}
-
-.docker-top-title {
-    font-weight: 700;
-    font-size: 14px;
-    text-transform: uppercase;
-    line-height: 1.2;
-    color: #1a1a1a;
-}
-
-.docker-top-subtitle {
-    font-size: 12px;
-    color: #333;
-    margin-top: 2px;
-}
-
-.docker-top-controls {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.docker-top-controls select {
-    padding: 2px 4px;
-    border: 1px solid #ccc;
-    border-radius: 2px;
-    font-size: 11px;
-    background: #fcfcfc;
-    color: #333;
-    height: 22px;
-}
-
-.docker-top-controls i.fa-refresh {
-    cursor: pointer;
-    color: #999;
-    font-size: 12px;
-}
-
-.docker-top-controls i.fa-refresh:hover {
-    color: #444;
-}
-
-/* Row Layout */
+/* Row Styling */
 .docker-top-row {
     display: flex;
     align-items: center;

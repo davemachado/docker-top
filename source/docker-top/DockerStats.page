@@ -10,36 +10,44 @@ $plugin = "docker-top";
 <link rel="stylesheet" href="/plugins/<?php echo $plugin; ?>/styles.css">
 <script src="/plugins/<?php echo $plugin; ?>/stats.js"></script>
 
-<div id="docker-top-widget" class="docker-top-container">
-    <div class="docker-top-header">
-        <div class="docker-top-title-wrap">
-            <div class="docker-top-icon">
-                <i class="fa fa-th-large"></i>
-            </div>
-            <div class="docker-top-title-content">
-                <div class="docker-top-title">DOCKER CONTAINERS</div>
-                <div id="docker-top-subtitle" class="docker-top-subtitle">Top 10 by CPU Usage</div>
-            </div>
-        </div>
-        <div class="docker-top-controls">
-            <select id="docker-top-metric-select" onchange="updateDockerTop()">
-                <option value="cpu">CPU Usage</option>
-                <option value="mem">Memory Usage</option>
-                <option value="disk">Disk I/O</option>
-            </select>
-            <i class="fa fa-refresh" onclick="updateDockerTop()" title="Refresh"></i>
-        </div>
-    </div>
-    
-    <div id="docker-top-list" class="docker-top-list">
-        <!-- Content populated by JS -->
-        <div class="docker-top-loading">Loading stats...</div>
-    </div>
-
-    <div id="docker-top-details" class="docker-top-details-toggle" onclick="toggleDetails()">
-        Hide details
-    </div>
-</div>
+<table id="db-docker-top" class="dashboard">
+    <thead>
+        <tr>
+            <td>
+                <span class="title">Docker Top <span id="docker-top-subtitle" style="font-size: 1.2rem;color: inherit;font-weight: 500;margin-left:8px;opacity:0.6;">Top 10 by CPU</span></span>
+                <span class="pull-right">
+                    <!-- Custom Controls -->
+                    <span style="margin-right: 12px; display: inline-flex; align-items: center; gap: 8px;">
+                        <select id="docker-top-metric-select" onchange="updateDockerTop()" style="height: 22px; padding: 0 4px; font-size: 1.1rem; border: 1px solid #ddd; border-radius: 3px;">
+                            <option value="cpu">CPU</option>
+                            <option value="mem">Mem</option>
+                            <option value="disk">I/O</option>
+                        </select>
+                        <i class="fa fa-refresh" onclick="updateDockerTop()" title="Refresh" style="cursor: pointer; opacity: 0.7;"></i>
+                    </span>
+                    
+                    <!-- Standard Unraid Icons -->
+                    <a href="/Settings/DockerTopSettings" title="Settings"><i class="fa fa-fw fa-cog"></i></a>
+                    <a href="#" class="toggle-vis" data-target=".dash_docker_top_body" title="Collapse/Expand"><i class="fa fa-fw fa-chevron-up"></i></a>
+                </span>
+            </td>
+        </tr>
+    </thead>
+    <tbody class="dash_docker_top_body sortable">
+        <tr>
+            <td>
+                <div id="docker-top-list" class="docker-top-list">
+                    <!-- Content populated by JS -->
+                    <div class="docker-top-loading">Loading stats...</div>
+                </div>
+                
+                <div id="docker-top-details" class="docker-top-details-toggle" onclick="toggleDetails()" style="text-align: center; padding: 8px; cursor: pointer; font-size: 1.1rem; opacity: 0.6;">
+                    Hide details
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
 
 <script>
 // Toggle details visibility
