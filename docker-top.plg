@@ -6,7 +6,7 @@
   <!ENTITY launch    "Dashboard">
   <!ENTITY gitURL    "https://github.com/davemachado/docker-top/releases/download">
   <!ENTITY pluginURL "https://raw.githubusercontent.com/davemachado/docker-top/master/&name;.plg">
-  <!ENTITY md5       "d17e51c7bb2b9d19605e1d261db7943c">
+  <!ENTITY md5       "a17a443f1bb3c9059447e5be0488ef6a">
   <!ENTITY plugin    "/boot/config/plugins/&name;">
   <!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
 ]>
@@ -35,9 +35,9 @@ echo "Installing &name;..."
 mkdir -p &emhttp;
 
 # Unpack the archive if it exists
-if [ -f "&plugin;/&name;.txz" ]; then
+if [ -f "&plugin;/&name;-&version;.txz" ]; then
     echo "Extracting plugin files..."
-    tar -xJf "&plugin;/&name;.txz" -C "/usr/local/emhttp/plugins/"
+    tar -xJf "&plugin;/&name;-&version;.txz" -C "/usr/local/emhttp/plugins/"
 fi
 
 # Ensure permissions

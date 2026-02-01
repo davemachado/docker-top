@@ -1,4 +1,3 @@
-<!-- source/docker-top/DockerStats.page -->
 Menu="Dashboard:page"
 Icon="docker-top.png"
 Title="Docker Top"
