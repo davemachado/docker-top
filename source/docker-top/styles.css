@@ -3,8 +3,6 @@
 .docker-top-list {
     display: block;
     width: 100%;
-    font-family: "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", "Consolas", monospace;
-    font-size: 12px;
 }
 
 .docker-top-loading {
@@ -30,7 +28,7 @@
 .docker-top-table th {
     color: #666;
     font-weight: 600;
-    font-size: 11px;
+    font-size: 1.1rem;
     border-bottom: 1px solid #ddd;
     cursor: pointer;
     user-select: none;
@@ -45,7 +43,7 @@
 }
 
 .docker-top-table th i {
-    font-size: 9px;
+    font-size: 0.9rem;
     margin-left: 4px;
     opacity: 0.5;
 }
@@ -76,6 +74,10 @@
 /* Data rows */
 .docker-top-table tbody tr {
     color: #333;
+}
+
+.docker-top-table tbody td {
+    font-size: 1.1rem;
 }
 
 .docker-top-table tbody tr:hover {
