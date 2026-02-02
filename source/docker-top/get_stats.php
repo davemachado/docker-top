@@ -35,8 +35,8 @@ function parseSize($sizeStr) {
 $sortBy = isset($_GET['sort']) ? $_GET['sort'] : 'cpu'; // cpu, mem, disk
 
 // Command to get stats
-// Format: Name | CPU Pct | Mem Pct | Mem Usage | Block IO
-$cmd = "docker stats --no-stream --format \"{{.Name}}|{{.CPUPerc}}|{{.MemPerc}}|{{.MemUsage}}|{{.BlockIO}}\"";
+// Format: Name | CPU Pct | Mem Pct | Mem Usage
+$cmd = "docker stats --no-stream --format \"{{.Name}}|{{.CPUPerc}}|{{.MemPerc}}|{{.MemUsage}}\"";
 $output = [];
 $return_var = 0;
 exec($cmd, $output, $return_var);
@@ -45,41 +45,30 @@ $data = [];
 
 foreach ($output as $line) {
     if (empty(trim($line))) continue;
-    
+
     $parts = explode('|', $line);
-    if (count($parts) < 5) continue;
-    
+    if (count($parts) < 4) continue;
+
     $name = $parts[0];
-    
+
     // Parse CPU
     $cpuRaw = str_replace('%', '', $parts[1]);
     $cpuVal = floatval($cpuRaw);
-    
+
     // Parse Mem Pct
     $memPctRaw = str_replace('%', '', $parts[2]);
     $memPctVal = floatval($memPctRaw);
-    
+
     // Parse Mem Usage (e.g., "50MiB / 1GiB")
     $memUsageParts = explode('/', $parts[3]);
     $memUsedBytes = parseSize($memUsageParts[0]);
-    $memLimitBytes = count($memUsageParts) > 1 ? parseSize($memUsageParts[1]) : 0;
-    
-    // Parse Block IO (e.g., "10MB / 50MB") -> In / Out
-    $ioParts = explode('/', $parts[4]);
-    $ioInBytes = parseSize($ioParts[0]);
-    $ioOutBytes = count($ioParts) > 1 ? parseSize($ioParts[1]) : 0;
-    $ioTotalBytes = $ioInBytes + $ioOutBytes;
-    
+
     $data[] = [
         'name' => $name,
         'cpu' => $cpuVal,
         'mem_pct' => $memPctVal,
         'mem_used' => $memUsedBytes,
-        'mem_used_human' => trim($memUsageParts[0]),
-        'io_total' => $ioTotalBytes,
-        'io_in' => $ioInBytes,
-        'io_out' => $ioOutBytes,
-        'io_human' => trim($parts[4])
+        'mem_used_human' => trim($memUsageParts[0])
     ];
 }
 
@@ -87,8 +76,6 @@ foreach ($output as $line) {
 usort($data, function($a, $b) use ($sortBy) {
     if ($sortBy === 'mem') {
         return $b['mem_used'] <=> $a['mem_used'];
-    } elseif ($sortBy === 'disk') {
-        return $b['io_total'] <=> $a['io_total'];
     } else {
         // default cpu
         return $b['cpu'] <=> $a['cpu'];

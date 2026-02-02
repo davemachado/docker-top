@@ -1,22 +1,27 @@
 // source/docker-top/stats.js
 
-function updateDockerTop() {
-    const metric = $('#docker-top-metric-select').val() || 'cpu';
-    const container = $('#docker-top-list');
-    const subtitle = $('#docker-top-subtitle');
+var dockerTopSortMetric = 'cpu';
 
-    // Update subtitle based on metric
-    let subtitleText = 'Top 10 by CPU Usage';
-    if (metric === 'mem') subtitleText = 'Top 10 by Memory Usage';
-    else if (metric === 'disk') subtitleText = 'Top 10 by Disk I/O';
-    subtitle.text(subtitleText);
+function setSortMetric(metric) {
+    dockerTopSortMetric = metric;
+    // Update header active states
+    $('.docker-top-col-header').removeClass('active');
+    $('.docker-top-col-header[data-metric="' + metric + '"]').addClass('active');
+    // Update sort icons
+    $('.docker-top-col-header i').removeClass('fa-sort-desc').addClass('fa-sort');
+    $('.docker-top-col-header[data-metric="' + metric + '"] i').removeClass('fa-sort').addClass('fa-sort-desc');
+    updateDockerTop();
+}
+
+function updateDockerTop() {
+    const container = $('#docker-top-list');
 
     // Add loading opacity if it's taking a while, or just spinner on first load
-    if (container.children().length === 0) {
+    if (container.children('.docker-top-row').length === 0) {
         container.html('<div class="docker-top-loading">Loading...</div>');
     }
 
-    $.getJSON('/plugins/docker-top/get_stats.php', { sort: metric }, function (data) {
+    $.getJSON('/plugins/docker-top/get_stats.php', { sort: dockerTopSortMetric }, function (data) {
         container.empty();
 
         if (!data || data.length === 0) {
@@ -24,39 +29,50 @@ function updateDockerTop() {
             return;
         }
 
+        // Add column headers
+        const headers = `
+            <div class="docker-top-column-headers">
+                <div class="docker-top-header-name">Container</div>
+                <div class="docker-top-header-cpu docker-top-col-header ${dockerTopSortMetric === 'cpu' ? 'active' : ''}" data-metric="cpu" onclick="setSortMetric('cpu')">
+                    CPU <i class="fa ${dockerTopSortMetric === 'cpu' ? 'fa-sort-desc' : 'fa-sort'}"></i>
+                </div>
+                <div class="docker-top-header-mem docker-top-col-header ${dockerTopSortMetric === 'mem' ? 'active' : ''}" data-metric="mem" onclick="setSortMetric('mem')">
+                    Mem <i class="fa ${dockerTopSortMetric === 'mem' ? 'fa-sort-desc' : 'fa-sort'}"></i>
+                </div>
+            </div>
+        `;
+        container.append(headers);
+
         data.forEach(function (item) {
-            // Determine display values and bar percentages
-            let label = '';
-            let pct = 0;
-            let textClass = 'usage-low';
+            // CPU values and styling
+            let cpuPct = Math.min(item.cpu, 100);
+            let cpuLabel = item.cpu.toFixed(0) + '%';
+            let cpuClass = 'usage-low';
+            if (item.cpu > 50) { cpuClass = 'usage-high'; }
+            else if (item.cpu > 20) { cpuClass = 'usage-med'; }
 
-            if (metric === 'cpu') {
-                label = item.cpu.toFixed(0) + '%';
-                pct = Math.min(item.cpu, 100);
+            // Memory values and styling
+            let memPct = item.mem_pct;
+            let memLabel = item.mem_pct.toFixed(0) + '%';
+            let memClass = 'usage-low';
+            if (item.mem_pct > 80) { memClass = 'usage-high'; }
+            else if (item.mem_pct > 50) { memClass = 'usage-med'; }
 
-                if (item.cpu > 50) { textClass = 'usage-high'; }
-                else if (item.cpu > 20) { textClass = 'usage-med'; }
-            } else if (metric === 'mem') {
-                label = item.mem_pct.toFixed(0) + '%';
-                pct = item.mem_pct;
-
-                if (item.mem_pct > 80) { textClass = 'usage-high'; }
-                else if (item.mem_pct > 50) { textClass = 'usage-med'; }
-            } else if (metric === 'disk') {
-                label = item.io_human.split(' / ')[0]; // Just show read or total? Let's show first part
-                let max = Math.max(...data.map(d => d.io_total)) || 1;
-                pct = (item.io_total / max) * 100;
-
-                if (pct > 80) { textClass = 'usage-high'; }
-            }
-
-            // New Row Layout: Name | Value | Bar
+            // Row with both metrics
             const row = `
                 <div class="docker-top-row">
                     <div class="docker-top-name" title="${item.name}">${item.name}</div>
-                    <div class="docker-top-val-text ${textClass}">${label}</div>
-                    <div class="docker-top-bar-container">
-                        <div class="docker-top-bar-fill" style="width: ${pct}%"></div>
+                    <div class="docker-top-metric docker-top-metric-cpu">
+                        <div class="docker-top-val-text ${cpuClass}">${cpuLabel}</div>
+                        <div class="docker-top-bar-container">
+                            <div class="docker-top-bar-fill" style="width: ${cpuPct}%"></div>
+                        </div>
+                    </div>
+                    <div class="docker-top-metric docker-top-metric-mem">
+                        <div class="docker-top-val-text ${memClass}">${memLabel}</div>
+                        <div class="docker-top-bar-container">
+                            <div class="docker-top-bar-fill" style="width: ${memPct}%"></div>
+                        </div>
                     </div>
                 </div>
             `;

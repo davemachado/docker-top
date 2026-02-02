@@ -17,19 +17,12 @@ $mytiles[$pluginname]['column2'] =
                     <i class="fa fa-th-large f32"></i>
                     <div class="section">
                         <h3 class="tile-header-main">DOCKER TOP</h3>
-                        <span id="docker-top-subtitle">Top 10 by CPU</span>
+                        <span id="docker-top-subtitle">Top 10 Containers</span>
                     </div>
                 </span>
                 <span class="tile-header-right">
                     <span class="tile-header-right-controls">
-                        <span style="margin-right: 12px; display: inline-flex; align-items: center; gap: 8px;">
-                            <select id="docker-top-metric-select" onchange="updateDockerTop()" style="height: 22px; padding: 0 4px; font-size: 1.1rem; border: 1px solid #ddd; border-radius: 3px;">
-                                <option value="cpu">CPU</option>
-                                <option value="mem">Mem</option>
-                                <option value="disk">I/O</option>
-                            </select>
-                            <i class="fa fa-refresh control" onclick="updateDockerTop()" title="Refresh" style="cursor: pointer; font-size: 14px;"></i>
-                        </span>
+                        <i class="fa fa-refresh control" onclick="updateDockerTop()" title="Refresh" style="cursor: pointer; font-size: 14px;"></i>
                         <a href="/Settings/DockerTopSettings" title="Settings"><i class="fa fa-fw fa-cog control"></i></a>
                     </span>
                 </span>

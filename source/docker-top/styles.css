@@ -19,6 +19,58 @@
     color: #888;
 }
 
+/* Column Headers */
+.docker-top-column-headers {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #ddd;
+    font-size: 12px;
+    font-weight: 600;
+    color: #666;
+}
+
+.docker-top-col-header {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.docker-top-col-header:hover {
+    color: #333;
+}
+
+.docker-top-col-header.active {
+    color: #4a7ebb;
+}
+
+.docker-top-col-header i {
+    font-size: 10px;
+    opacity: 0.5;
+}
+
+.docker-top-col-header.active i {
+    opacity: 1;
+}
+
+.docker-top-header-name {
+    flex: 0 0 120px;
+    color: #666;
+}
+
+.docker-top-header-cpu {
+    flex: 0 0 140px;
+    padding-left: 4px;
+}
+
+.docker-top-header-mem {
+    flex: 1;
+    padding-left: 4px;
+}
+
 /* Row Styling */
 .docker-top-row {
     display: flex;
@@ -29,7 +81,7 @@
 }
 
 .docker-top-name {
-    flex: 0 0 160px;
+    flex: 0 0 120px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -37,11 +89,26 @@
     color: #333;
 }
 
+/* Metric column (value + bar) */
+.docker-top-metric {
+    display: flex;
+    align-items: center;
+}
+
+.docker-top-metric-cpu {
+    flex: 0 0 140px;
+}
+
+.docker-top-metric-mem {
+    flex: 1;
+}
+
 .docker-top-val-text {
-    flex: 0 0 45px;
+    flex: 0 0 36px;
     text-align: right;
-    padding-right: 10px;
+    padding-right: 6px;
     font-weight: normal;
+    font-size: 12px;
 }
 
 .docker-top-bar-container {
@@ -51,7 +118,7 @@
     border-radius: 0;
     overflow: hidden;
     position: relative;
-    max-width: 400px;
+    max-width: 100px;
 }
 
 .docker-top-bar-fill {
@@ -141,4 +208,39 @@ body.dark .docker-top-name {
 
 body.dark .docker-top-details-toggle {
     color: #69a1e0;
+}
+
+/* Dark mode for column headers */
+body.dark .docker-top-column-headers {
+    border-bottom-color: #444;
+    color: #999;
+}
+
+body.dark .docker-top-col-header:hover {
+    color: #ccc;
+}
+
+body.dark .docker-top-col-header.active {
+    color: #69a1e0;
+}
+
+body.dark .docker-top-header-name {
+    color: #999;
+}
+
+/* Responsive adjustments */
+@media (max-width: 500px) {
+    .docker-top-name {
+        flex: 0 0 80px;
+    }
+    .docker-top-header-name {
+        flex: 0 0 80px;
+    }
+    .docker-top-metric-cpu,
+    .docker-top-header-cpu {
+        flex: 0 0 100px;
+    }
+    .docker-top-bar-container {
+        max-width: 60px;
+    }
 }
