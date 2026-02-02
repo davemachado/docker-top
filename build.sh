@@ -1,7 +1,7 @@
 #!/bin/bash
-# build.sh - Package the docker-top plugin for Unraid
+# build.sh - Package the docker-stats plugin for Unraid
 
-PLUGIN_NAME="docker-top"
+PLUGIN_NAME="docker-stats"
 VERSION=$(date +%Y.%m.%d)
 SOURCE_DIR="source/${PLUGIN_NAME}"
 PACKAGES_DIR="packages"

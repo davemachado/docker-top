@@ -1,12 +1,12 @@
 <?xml version='1.0' standalone='yes'?>
 <!DOCTYPE PLUGIN [
-  <!ENTITY name      "docker-top">
+  <!ENTITY name      "docker-stats">
   <!ENTITY author    "Dave Machado">
   <!ENTITY version   "2026.02.01">
   <!ENTITY launch    "Dashboard">
-  <!ENTITY gitURL    "https://github.com/davemachado/docker-top/releases/download">
-  <!ENTITY pluginURL "https://raw.githubusercontent.com/davemachado/docker-top/master/&name;.plg">
-  <!ENTITY md5       "d1daa9e0e77e51d1514d0251bb15bd16">
+  <!ENTITY gitURL    "https://github.com/davemachado/docker-stats/releases/download">
+  <!ENTITY pluginURL "https://raw.githubusercontent.com/davemachado/docker-stats/master/&name;.plg">
+  <!ENTITY md5       "25300daa205aae941a8b07278a1fb12f">
   <!ENTITY plugin    "/boot/config/plugins/&name;">
   <!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
 ]>

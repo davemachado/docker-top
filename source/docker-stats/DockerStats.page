@@ -1,29 +1,26 @@
-<!-- source/docker-top/DockerStats.page -->
-Icon="docker-top.png"
-Title="Docker Top"
 Menu="Dashboard:0"
 ---
 <?php
-$plugin = "docker-top";
-$pluginname = "Docker Top";
+$plugin = "docker-stats";
+$pluginname = "Docker Stats";
 
 $mytiles[$pluginname]['column2'] =
 <<<EOT
-<tbody id="tblDockerTop" title="Docker Top">
+<tbody id="tblDockerStats" title="Docker Stats">
     <tr>
         <td>
             <span class="tile-header">
                 <span class="tile-header-left">
                     <i class="fa fa-th-large f32"></i>
                     <div class="section">
-                        <h3 class="tile-header-main">DOCKER TOP</h3>
-                        <span id="docker-top-subtitle">Top 10 Containers</span>
+                        <h3 class="tile-header-main">DOCKER STATS</h3>
+                        <span id="docker-stats-subtitle">Top 10 Containers</span>
                     </div>
                 </span>
                 <span class="tile-header-right">
                     <span class="tile-header-right-controls">
-                        <i class="fa fa-refresh control" onclick="updateDockerTop()" title="Refresh" style="cursor: pointer; font-size: 14px;"></i>
-                        <a href="/Settings/DockerTopSettings" title="Settings"><i class="fa fa-fw fa-cog control"></i></a>
+                        <i class="fa fa-refresh control" onclick="updateDockerStats()" title="Refresh" style="cursor: pointer; font-size: 14px;"></i>
+                        <a href="/Settings/DockerStatsSettings" title="Settings"><i class="fa fa-fw fa-cog control"></i></a>
                     </span>
                 </span>
             </span>
@@ -31,8 +28,8 @@ $mytiles[$pluginname]['column2'] =
     </tr>
     <tr>
         <td>
-            <div id="docker-top-list" class="docker-top-list">
-                <div class="docker-top-loading">Loading stats...</div>
+            <div id="docker-stats-list" class="docker-stats-list">
+                <div class="docker-stats-loading">Loading stats...</div>
             </div>
         </td>
     </tr>
@@ -46,7 +43,7 @@ EOT;
 <script>
 // Init
 $(document).ready(function() {
-    setInterval(updateDockerTop, 3000);
-    updateDockerTop();
+    setInterval(updateDockerStats, 3000);
+    updateDockerStats();
 });
 </script>

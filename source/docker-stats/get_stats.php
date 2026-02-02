@@ -1,5 +1,5 @@
 <?php
-// docker-top/source/docker-top/get_stats.php
+// docker-stats/source/docker-stats/get_stats.php
 
 header('Content-Type: application/json');
 

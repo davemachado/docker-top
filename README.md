@@ -1,8 +1,8 @@
-# Docker Top Plugin for Unraid
+# Docker Stats Plugin for Unraid
 
 A dashboard widget plugin for Unraid that visualizes real-time resource usage of your top 10 Docker containers.
 
-![Icon](source/docker-top/docker-top.png)
+![Icon](source/docker-stats/docker-stats.png)
 
 ## Features
 - **CPU Usage**: Monitor CPU load per container.
@@ -15,8 +15,8 @@ A dashboard widget plugin for Unraid that visualizes real-time resource usage of
 
 To install the plugin on your Unraid server:
 
-1. Copy the **Direct Link** to the `docker-top.plg` file in the root of this repository.
-   - Usually: `https://raw.githubusercontent.com/davemachado/docker-top/master/docker-top.plg`
+1. Copy the **Direct Link** to the `docker-stats.plg` file in the root of this repository.
+   - Usually: `https://raw.githubusercontent.com/davemachado/docker-stats/master/docker-stats.plg`
 2. Go to your Unraid Web UI.
 3. Navigate to the **Plugins** tab.
 4. Click on **Install Plugin**.
@@ -24,7 +24,7 @@ To install the plugin on your Unraid server:
 
 ## Development & Building
 
-1. **Modify Code**: Make changes in the `source/docker-top` directory.
+1. **Modify Code**: Make changes in the `source/docker-stats` directory.
 2. **Build Locally**: Run `./build.sh` to update the `.plg` file and package the versioned `.txz` in the `packages/` directory.
 3. **Release**: 
    - Push a new tag (e.g., `git tag v2026.02.01 && git push origin --tags`).

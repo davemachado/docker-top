@@ -26,7 +26,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            docker-top.plg
+            docker-stats.plg
             packages/*.txz
           draft: false
           prerelease: false
