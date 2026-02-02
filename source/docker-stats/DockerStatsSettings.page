@@ -10,10 +10,13 @@ $cfg_file = "/boot/config/plugins/{$plugin}/{$plugin}.cfg";
 // Read config with defaults
 $cfg = @parse_ini_file($cfg_file) ?: [];
 $container_limit = isset($cfg['CONTAINER_LIMIT']) ? intval($cfg['CONTAINER_LIMIT']) : 10;
+$refresh_interval = isset($cfg['REFRESH_INTERVAL']) ? intval($cfg['REFRESH_INTERVAL']) : 3;
 
-// Validate range
+// Validate ranges
 if ($container_limit < 5) $container_limit = 5;
 if ($container_limit > 50) $container_limit = 50;
+if ($refresh_interval < 1) $refresh_interval = 1;
+if ($refresh_interval > 30) $refresh_interval = 30;
 ?>
 
 <form markdown="1" method="POST" action="/update.php" target="progressFrame">
@@ -39,6 +42,28 @@ if ($container_limit > 50) $container_limit = 50;
     <p>Containers are sorted by the selected metric (CPU or Memory usage) and the top N containers are shown.</p>
     <p><strong>Range:</strong> 5 to 50 containers (in increments of 5)</p>
     <p><strong>Default:</strong> 10 containers</p>
+</blockquote>
+
+<dl>
+    <dt>Refresh Interval (seconds):</dt>
+    <dd>
+        <select name="REFRESH_INTERVAL" size="1">
+            <?php
+            $intervals = [1, 2, 3, 5, 10, 15, 30];
+            foreach ($intervals as $val) {
+                $selected = ($val == $refresh_interval) ? 'selected' : '';
+                echo "<option value=\"{$val}\" {$selected}>{$val}</option>";
+            }
+            ?>
+        </select>
+    </dd>
+</dl>
+
+<blockquote class="inline_help">
+    <p>Set how frequently the Docker Stats widget updates.</p>
+    <p>Lower values provide more real-time data but may increase system load.</p>
+    <p><strong>Range:</strong> 1 to 30 seconds</p>
+    <p><strong>Default:</strong> 3 seconds</p>
 </blockquote>
 
 <dl>

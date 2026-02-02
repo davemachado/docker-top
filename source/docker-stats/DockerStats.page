@@ -45,7 +45,8 @@ EOT;
 <script>
 // Init
 $(document).ready(function() {
-    setInterval(updateDockerStats, 3000);
+    var refreshInterval = <?php echo $docker_stats_refresh_interval * 1000; ?>; // Convert seconds to milliseconds
+    setInterval(updateDockerStats, refreshInterval);
     updateDockerStats();
 });
 </script>
