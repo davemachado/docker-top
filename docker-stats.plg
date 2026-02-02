@@ -18,6 +18,14 @@
  - Initial Release
 </CHANGES>
 
+<FILE Name="&emhttp;/README.md">
+<INLINE>
+**Docker Stats**
+
+Dashboard widget to visualize real-time resource usage of Docker containers.
+</INLINE>
+</FILE>
+
 <!-- The 'install' script. -->
 <FILE Name="&plugin;/&name;-&version;.txz">
 <URL>&gitURL;/v&version;/&name;-&version;.txz</URL>
